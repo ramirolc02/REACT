@@ -1,38 +1,46 @@
 import { useState } from 'react' // import function
 
 // Destructuring, not passing props but just necessary objects.
-const Display = ({counter}) => <divs> {counter} </divs>
 
-const Button = ({onClick,text}) => <button onClick={onClick}>{text}</button>
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return( <div> The app is used by pressing the butttons: </div> )
+  }
+  return(<div> Button press history : {props.allClicks.join(' ')}</div>)
+}
+
+const Button = ({handleClick, text}) => (
+  <button onClick={handleClick}>
+    {text}
+  </button>
+)
 
 const App = () => {
-  const [ counter, setCounter ] = useState(0) // counter = 0 && setcounter is function that modifies state
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  const [allClicks, setAll] = useState([])
 
-  // variables containing reference to function
-  const increaseByOne = () => setCounter(counter + 1)
-  const decreaseByOne = () => setCounter(counter -1)
-  const setToZero = () => setCounter(0)
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left + 1)
+  }
 
-  // Set timeout adds 1 to counter each second.
-  /* setTimeout(
-    () => setCounter(counter + 1),
-    1000
-  ) */ 
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right + 1)
+  }
+
   return (
     <div>
-        <h1>App</h1>
-        <Display counter = {counter}/>
-        <Button onClick={increaseByOne}
-          text='plus'
-        />
-         <Button onClick={setToZero}
-          text='zero'
-        />
-         <Button onClick={decreaseByOne}
-          text='minus'
-        />
+      <h1> Welcome </h1>
+      {left}
+      <Button handleClick={handleLeftClick} text='left' />
+      <Button handleClick={handleRightClick} text='right' />
+      {right}
+      <History allClicks={allClicks}/> 
     </div>
   )
+  // join(separated by string passes as function parameter)
 }
 
 export default App
