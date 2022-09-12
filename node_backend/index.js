@@ -51,6 +51,7 @@ let notes = [
   })
 
   const generateId = () => {
+    // use three dots (spread syntax), individual numbers
     const maxId = notes.length > 0
       ? Math.max(...notes.map(n => n.id))
       : 0
@@ -58,6 +59,7 @@ let notes = [
   }
   
   app.post('/api/notes', (request, response) => {
+    // client request
     const body = request.body
   
     if (!body.content) {
@@ -74,7 +76,7 @@ let notes = [
     }
   
     notes = notes.concat(note)
-  
+    // server response
     response.json(note)
   })
 
