@@ -2,7 +2,6 @@
 import Note from "./components/Note"
 import Notification from "./components/Notification"
 import { useState, useEffect } from "react"
- // import axios from 'axios'
 import noteService from './services/notes'
 
 const Footer = () => {
