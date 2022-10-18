@@ -1,8 +1,15 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const mongoose = require('mongoose')
 app.use(cors())
 app.use(express.static('build'))
+
+// don't upload password to github
+const url =`mongodb+srv://fullstack:<password>@cluster0.o1opl.mongodb.net/noteApp?retryWrites=true&w=majority`
+mongoose.connect(url)
+
+
 let notes = [
   {
     id: 1,
@@ -100,3 +107,11 @@ const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+// MongoDB
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
